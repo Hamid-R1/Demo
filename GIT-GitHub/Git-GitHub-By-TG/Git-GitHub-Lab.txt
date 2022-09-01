@@ -1,0 +1,245 @@
+Git-GitHub-Lab
+
+--theory is done, notes is in screenshots--
+	--Part-1 
+	--Part-2 
+
+--lab--
+	--Part-3
+	--How to install git on aws linux machine, how to create github a/c
+
+--launch ec2-instance in mumbai region, take ami-amazon linux-2, S.G.=ssh,http, launch.
+	--connect this ec2 throuch putty, now here we install git, see process--
+	--sudo su
+	--yum update -y    (not working, No packages marked for update)
+	--yum upgrade -y   (not working, No packages marked for update)
+	--yum install git -y
+	--which git
+	--git --version
+	--git config --global user.name "hr1"    ,(this is username)
+	--git config --global user.email "hr1@gmail.com"    ,(this is user's email id)
+	--git config --list
+	--
+
+
+------
+
+--launch ec2-instance in ohio region, take ami-amazon linux-2, S.G.=ssh,http, launch.
+	--connect this ec2 throuch putty, now here we install git, see process--
+	--sudo su
+	--yum update -y    (not working, No packages marked for update)
+	--yum upgrade -y   (not working, No packages marked for update)
+	--yum install git -y
+	--which git
+	--git --version
+	--git config --global user.name "hr2"    ,(this is username)
+	--git config --global user.email "hr2@gmail.com"    ,(this is user's email id)
+	--git config --list
+	--
+
+-------
+
+--how to create gitHub a/c--
+	--github.com>>sign up>>email id, psswd, userid, email verfication, thats it done.
+	--GitHub userid & psswd is in our copy.
+	
+-------
+
+
+--Part-4--
+	--how to add,commit in git, how to push from git to github, how to pull code from github.
+
+	--theory in screenshots notes,
+	--open putty & login in ec2-instance from mumbai region
+	--sudo su
+	--mkdir mumbaigit
+	--cd mumbaigit
+	--git init      ,(local repository ready hota h iss command se)
+	--cat>file1   (this is git&github commands)
+	--git status     (for see Untracked files details)
+	--git add .  (for add this /file/code/syntax from working space to staging area)
+	--git commit -m "this is 1st commit from mumbai"     (for add file from staging area to local repository)
+	--git status
+	--git log   (for see commit id, commit messege, etc details)
+	--git show <commit ID>, ex=git show  61a3c48bdf     (for see commited syntax/code/text...)
+	
+	--now go to your GitHub a/c>>click on New (left sidebar)>>Repository name=hrcentralgit, Description=this is 
+	  github repository for hammy a/c, select=public, >>click craete repository>>done.
+
+	--copy url from your GitHub repository(my Repo is hrcentralgit) and paste in terminal, see below--
+	--go to mumbai ec2-instance terminal and run command--
+
+	--git remote add origin <url of your GitHub Repository> , see ex=git remote add origin https://github.com/hammyr/hrcentralgit.git
+	Noted- yha iss command (git remote add origin <url>) se hum apni local Repo ko GitHub k central Repo k sath connect
+	       kr diya hai.
+
+	--we need to create personal access token for push instead for userid & psswd so for that>>go to github a/c>>
+	  >>click on profile icon on right header>>settings>>developer settings>>personal access token>>generate new token
+	  >>note=my repo-personal access token, Select scope=tick/enable=repo>>generate token>>copy token url.
+
+	--personal access token=  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
+
+	--git push origin main
+	--asking for username= yha personal access token id paste krna h
+	--asking for psswd=  kuch ni bs enter press kro
+	
+	--cat>file1    type something (this is 2nd line code)
+	--git status
+	--git add .
+	--git status
+	--git commit -m "this is 2nd line code"
+	--git status
+	--git log
+	--git show 27b6c1335d(commit id)
+	--git push origin main      
+		asking for Username for 'https://github.com':paste here personal access token url,
+		asking for psswd=   press enter only.
+		done.
+
+--------------
+
+--Now go to Ohio Region--
+	--open ec2-instance in putty
+	--sudo su
+	--mkdir singaporegit
+	--cd singaporegit
+	--git init
+	--ls -a
+	Noted--yha hum GitHub me jo hrcentralgit naam ki Repository hai usko iss git k sath connect krenge r phir vha
+	       GitHub se yha git me hum code/line/text pull krenge, see below--
+
+	-- git remote add origin (url of cetral repository)https://github.com/hammyr/hrcentralgit.git
+	--git log
+	--git status
+	--git pull origin main  (GitHub k hrcentralgit Repository se sara code/line yha pull//aajayega.
+	--git log   (yha hr1 user ne kya code likha etc sb bta rha h)
+	--git show (commit id)27b6c1335d2
+	--vi file1   (this is 3rd line from ohio region ec2-instance local git repository)
+	--git status
+	--git add .
+	--git status
+	--git commit -m "this is commit from singapore git local rep"
+	--git status
+	--git log
+	--git show (commit id)5135b459f0ddcd04
+	Noted--ab yha hmne jo code likha h usko bhi hm GitHub k central Repo me push krte h, see below--
+	
+	--git push origin master
+		asking for Username for 'https://github.com':paste here personal access token url,
+		asking for psswd=   press enter only.
+		done.
+-----------------
+
+--Now go to mumbai region ec2-instance & open terminal in putty--
+	--sudo su
+	--cd mumbaigit
+	--git log  (yha abhi update ni dikha rha h jo hr2 user ne code dala tha, so uske k liye meko pull krna hoga )
+	--git pull origin master   (update ho gya GitHub se)
+	--git log
+	--git show 5135b459f0ddcd04fa4(commid id)
+------------
+
+--theory part--
+	--ignore concept--in screenshot
+
+----------
+
+--lab ignore part in mumbai region, you can do this lab in any region
+	--open putty from ec2-instance from mumbai region
+	--sudo su
+	--cd mumbaigit
+	--vi .gitignore  
+	  (noted- ignore file yhi name se hi bnta h hmesha, r us file hum jis file ko ignore krna chahte h
+	  uska extention ka aage * type krte h, jaise ex= maan lo ki hum .css r .java extention k sath jo bhi file ho wo 
+	  sabhi ignore rhe to hmko aise type krna hoga see below--
+		*.css
+		*.java
+	  Noted- yha */star ka mtlb hai k ./dot se phle kuch bhi ho un sabhi file ko ignore krega.
+
+	--git add .gitignore
+	--git commit -m "ignore file format"
+	--git status
+	--touch f1.txt f2.txt f3.java f4.css f5.java
+	--ls   (yha hmko sabhi files show ho rhi h, but jb hum commit krenge tb yha .java r .css wali file aage ni jayegi)
+	--git status   (yha hmko f3.java, f4.css, f5.java show ni ho rhi h)
+	--git add .
+	--git status
+	--git commit -m "ignore java and css file"
+	--git log    (for come out from here press q only)
+	--git show 950ffecd0d65ae882
+	--time=1:10:50..............
+	--touch f6.java
+	--git status
+	--touch f7.txt
+	--git status
+	--git log -1   (last one commit)
+	--git log -2   (last 2 commit)
+	--git log --oneline  (all commit in one para/line/inshort)
+	--git log --grep "ignore"    (kisi specified word se search krne k liye commit me, yha "ignore" word jha-jha
+	  hoga commit messege me wo yha show krega)
+	--git log --grep "commit"    (search for commit word, same as above one)
+	--git log
+	--git status
+   	--git add .
+	--git status
+  	--git commit -m "this is commit messege frm ignore concept"
+  	--git status
+  	--git log
+  	--git show cf55b151c8c8f9890
+  	--git push origin main
+	asking for Username for 'https://github.com':paste here personal access token url,
+		asking for psswd=   press enter only.
+		done.
+
+--upto here part-4 is completed.
+-----------------------------------
+
+--Part-5--
+
+--abc
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------
+
+--error--
+
+Username for 'https://github.com': hammyr
+Password for 'https://hammyr@github.com':
+remote: Support for password authentication was removed on August 13, 2021. Please use a personal access token instead.
+remote: Please see https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/ for more information.
+fatal: Authentication failed for 'https://github.com/hammyr/hrcentralgit.git/'
+
+
+2nd error
+
+[root@ip-172-31-32-4 mumbaigit]# git push -u origin main
+error: src refspec main does not match any
+error: failed to push some refs to 'https://github.com/hammyr/hrcentralgit.git'
+
+-------------------------------------------------
+
+
+Noted--password authentication was removed on August 13, 2021. Please use a personal access token instead.  i think
+	       yha github ka features kuch update hua h so aisa messege aa rha h.
+
+--Noted--And Push the changes in your local repository to GitHub if needed.
+	$ git push -u origin master    # before Oct 2020
+		or
+	$ git push -u origin main      # after Oct 2021
+-------------------------------------------------------------------------
+
+
+
+
+
+
